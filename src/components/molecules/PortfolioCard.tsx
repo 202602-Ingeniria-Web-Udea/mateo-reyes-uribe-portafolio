@@ -8,7 +8,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Clock } from "lucide-react";
 import { Button } from "@/components/atoms/Button";
 import { ProjectImage } from "@/components/molecules/ProjectImage";
 import { cn } from "@/lib/utils";
@@ -33,6 +33,10 @@ export interface PortfolioCardProps {
   onOpenDetails: () => void;
   /** Texto del botón. */
   actionLabel?: string;
+  /** Sitio desplegado. Si existe, la card muestra un enlace directo. */
+  liveUrl?: string;
+  /** Marca el proyecto como aún no desplegado. */
+  comingSoon?: boolean;
   className?: string;
 }
 
@@ -58,6 +62,8 @@ export function PortfolioCard({
   imageAlt,
   onOpenDetails,
   actionLabel = "Learn more",
+  liveUrl,
+  comingSoon = false,
   className,
 }: PortfolioCardProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -108,6 +114,12 @@ export function PortfolioCard({
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-accent-night/80 via-accent/25 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
+        {comingSoon && (
+          <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-accent-night/90 px-3 py-1 text-xs font-semibold tracking-snug text-white shadow-md backdrop-blur">
+            <Clock size={12} aria-hidden="true" />
+            Coming soon
+          </span>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-5">
@@ -117,17 +129,34 @@ export function PortfolioCard({
         <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
           {shortDescription}
         </p>
-        <Button
-          size="sm"
-          variant="primary"
-          icon={ArrowRight}
-          iconPosition="right"
-          onClick={onOpenDetails}
-          aria-label={`${actionLabel} about ${title}`}
-          className="mt-5 self-start"
-        >
-          {actionLabel}
-        </Button>
+        <div className="mt-5 flex flex-wrap items-center gap-2.5">
+          <Button
+            size="sm"
+            variant="primary"
+            icon={ArrowRight}
+            iconPosition="right"
+            onClick={onOpenDetails}
+            aria-label={`${actionLabel} about ${title}`}
+          >
+            {actionLabel}
+          </Button>
+          {liveUrl && (
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit the live site of ${title}`}
+              className="group/live inline-flex h-9 items-center gap-1.5 rounded-md border border-line bg-surface px-3.5 text-sm font-medium tracking-snug text-ink-soft shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:shadow-md"
+            >
+              Visit site
+              <ArrowUpRight
+                size={15}
+                aria-hidden="true"
+                className="transition-transform duration-200 ease-out group-hover/live:-translate-y-0.5 group-hover/live:translate-x-0.5"
+              />
+            </a>
+          )}
+        </div>
       </div>
     </motion.article>
   );

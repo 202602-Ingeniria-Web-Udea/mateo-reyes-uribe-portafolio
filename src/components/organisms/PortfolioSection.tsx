@@ -1,7 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, ExternalLink, GitBranch } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  ExternalLink,
+  GitBranch,
+} from "lucide-react";
 import { SectionHeading } from "@/components/atoms/SectionHeading";
 import { Tag } from "@/components/atoms/Tag";
 import { Modal } from "@/components/molecules/Modal";
@@ -115,6 +121,8 @@ export function PortfolioSection({
             title={item.title}
             shortDescription={item.shortDescription}
             imageUrl={item.imageUrl}
+            liveUrl={item.liveUrl}
+            comingSoon={item.comingSoon}
             onOpenDetails={() => setSelectedProject(item)}
             className="w-card shrink-0 snap-start sm:w-card-lg"
           />
@@ -150,25 +158,33 @@ export function PortfolioSection({
             </ul>
 
             {/* Cada enlace solo aparece si el proyecto lo tiene. */}
-            {(selectedProject.liveUrl || selectedProject.repoUrl) && (
-              <div className="flex flex-wrap gap-4 border-t border-line pt-5">
+            {(selectedProject.liveUrl ||
+              selectedProject.repoUrl ||
+              selectedProject.comingSoon) && (
+              <div className="flex flex-wrap items-center gap-3 border-t border-line pt-5">
                 {selectedProject.liveUrl && (
                   <a
                     href={selectedProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+                    className="inline-flex h-10 items-center gap-2 rounded-md bg-gradient-to-br from-accent-bright via-accent to-accent-deep px-4 text-sm font-semibold tracking-snug text-white shadow-glow transition-all duration-200 ease-out hover:-translate-y-0.5 hover:brightness-110"
                   >
                     <ExternalLink size={16} aria-hidden="true" />
-                    Live demo
+                    Visit live site
                   </a>
+                )}
+                {selectedProject.comingSoon && (
+                  <span className="inline-flex h-10 items-center gap-2 rounded-md border border-dashed border-accent/40 bg-accent-soft px-4 text-sm font-semibold tracking-snug text-accent-deep">
+                    <Clock size={16} aria-hidden="true" />
+                    Live demo coming soon
+                  </span>
                 )}
                 {selectedProject.repoUrl && (
                   <a
                     href={selectedProject.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+                    className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface px-4 text-sm font-medium tracking-snug text-ink-soft shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:shadow-md"
                   >
                     <GitBranch size={16} aria-hidden="true" />
                     View code

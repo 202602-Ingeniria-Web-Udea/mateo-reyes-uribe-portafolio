@@ -24,20 +24,21 @@ export const profile: Profile = {
   heroDescription:
     "Systems Engineering student at Universidad de Antioquia, building backend services with Java, Spring Boot and PostgreSQL. I care about APIs that stay readable as they grow, data that keeps its integrity, and deployments that don't need babysitting.",
   bioLong:
-    "I'm a Systems Engineering student at Universidad de Antioquia, currently in my eighth semester and looking for a professional internship for the first half of 2027. Most of my hands-on work is backend: REST APIs in Java and Spring Boot, relational modelling in PostgreSQL, and containerised environments with Docker.\n\nSince June 2025 I've worked as a Programming Assistant at the university, maintaining the Systems Engineering department portal end to end — frontend and backend — with at least two clean deployments a month. I handle change requests from the academic team directly in production, orchestrate the deployment environments with Docker, and support the department's network infrastructure.\n\nOn my own time I build projects that force me to get the fundamentals right: a point-of-sale system, a banking backend with JWT authentication and anomaly detection, and a voice tutor that pairs speech recognition with an LLM. I work comfortably with Scrum and Kanban, and I'm looking for a hybrid role where I can keep shipping.",
+    "I'm a Systems Engineering student at Universidad de Antioquia, currently in my eighth semester and looking for a professional internship for the first half of 2027. Most of my hands-on work is backend: REST APIs in Java and Spring Boot, relational modelling in PostgreSQL, and containerised environments with Docker.\n\nAt the university I work as a School Factory Monitor: I support the development teams with Scrum ceremonies and backlog management, and I work across backend, databases, quality assurance, requirements and project follow-up. I also maintain the Systems Engineering department portal end to end, with at least two clean deployments a month and environments orchestrated with Docker.\n\nOn my own time I build projects that force me to get the fundamentals right: a point-of-sale system, a banking backend with JWT authentication and anomaly detection, and a voice tutor that pairs speech recognition with an LLM. I work comfortably with Scrum and Kanban, and I'm looking for a hybrid role where I can keep shipping.",
 };
 
 /**
  * Idiomas. `level` es un porcentaje de 0 a 100 usado por las barras de
- * progreso; B1 corresponde a un nivel intermedio, de ahí el 55.
+ * progreso; B2 corresponde a un nivel intermedio-alto, de ahí el 70.
  */
 export const languages: LanguageSkill[] = [
   { name: "Spanish (native)", level: 100 },
-  { name: "English (B1)", level: 55 },
+  { name: "English (B2)", level: 70 },
 ];
 
 /**
- * Stack técnico. `level` es un porcentaje de 0 a 100.
+ * Stack técnico, enfocado en backend y DevOps. `level` es un porcentaje de 0
+ * a 100.
  *
  * TODO: los porcentajes son una estimación a partir del peso que cada
  * tecnología tiene en tu hoja de vida. Ajústalos: es el único dato de este
@@ -46,10 +47,10 @@ export const languages: LanguageSkill[] = [
 export const programmingSkills: ProgrammingSkill[] = [
   { name: "Java", level: 90 },
   { name: "SQL", level: 85 },
+  { name: "Docker", level: 80 },
   { name: "TypeScript", level: 75 },
   { name: "JavaScript", level: 75 },
   { name: "Python", level: 65 },
-  { name: ".NET", level: 35 },
 ];
 
 /**

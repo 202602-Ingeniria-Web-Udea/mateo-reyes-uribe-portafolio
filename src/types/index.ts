@@ -95,8 +95,12 @@ export interface ExperienceItem {
   title: string;
   /** Matiz del vínculo: "Part-time", "8th semester", "Academic project"... */
   role: string;
-  /** Rango temporal legible, por ejemplo `"Jun 2025 — Present"`. */
-  period: string;
+  /**
+   * Rango temporal legible, por ejemplo `"Jun 2025 — Present"`. Opcional:
+   * algunas entradas (roles en curso sin fecha de cierre definida) prefieren
+   * no mostrar fecha.
+   */
+  period?: string;
   description: string;
 }
 
@@ -113,6 +117,8 @@ export interface PortfolioItem {
   imageUrl: string;
   repoUrl?: string;
   liveUrl?: string;
+  /** Proyecto aún sin despliegue público: se marca como "Coming soon". */
+  comingSoon?: boolean;
 }
 
 export interface SocialLink {

@@ -44,11 +44,13 @@ export default function ProbeAtoms() {
         <IconBadge icon="Check" tone="success" size={64} />
       </div>
       <div className="flex flex-wrap gap-2">
-        {experienceItems.map((item) => (
-          <Tag key={item.id} icon="Calendar">
-            {item.period}
-          </Tag>
-        ))}
+        {experienceItems
+          .filter((item) => item.period)
+          .map((item) => (
+            <Tag key={item.id} icon="Calendar">
+              {item.period}
+            </Tag>
+          ))}
         <Tag>Sin icono</Tag>
       </div>
       <div className="flex gap-3">

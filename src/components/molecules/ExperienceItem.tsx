@@ -13,8 +13,8 @@ import { cn } from "@/lib/utils";
 export interface ExperienceItemProps {
   /** Organización: empresa o centro de estudios. */
   institution: string;
-  /** Rango temporal legible; se muestra dentro de un `Tag`. */
-  period: string;
+  /** Rango temporal legible; se muestra dentro de un `Tag`. Opcional. */
+  period?: string;
   /** Puesto ocupado o programa cursado. */
   title: string;
   description: string;
@@ -74,7 +74,7 @@ export function ExperienceItem({
         <h3 className="text-lg font-semibold tracking-snug text-ink transition-colors duration-300 group-hover:text-accent-deep">
           {institution}
         </h3>
-        <Tag icon="Calendar">{period}</Tag>
+        {period && <Tag icon="Calendar">{period}</Tag>}
       </div>
 
       <p className="mt-1.5 text-sm font-medium text-ink-soft">

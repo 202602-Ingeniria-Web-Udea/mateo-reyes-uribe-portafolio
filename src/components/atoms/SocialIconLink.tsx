@@ -37,10 +37,13 @@ export interface SocialIconLinkProps {
 /**
  * Enlace circular a una red social.
  *
- * En reposo es gris y discreto; al pasar el cursor se llena de accent, el
- * logo pasa a blanco y el círculo crece un 10 %. Abre en una pestaña nueva
- * con `rel="noopener noreferrer"`, que evita que la página destino pueda
- * manipular la nuestra a través de `window.opener`.
+ * En reposo lleva un tinte accent muy diluido (no blanco liso: sobre las
+ * columnas laterales, que también son `bg-surface`, un círculo blanco se
+ * fundía con el fondo y quedaba invisible salvo por el borde). Al pasar el
+ * cursor se llena de accent sólido, el logo pasa a blanco y el círculo crece
+ * un 10 %. Abre en una pestaña nueva con `rel="noopener noreferrer"`, que
+ * evita que la página destino pueda manipular la nuestra a través de
+ * `window.opener`.
  */
 export function SocialIconLink({
   icon,
@@ -60,7 +63,7 @@ export function SocialIconLink({
       title={name}
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-full",
-        "border border-line bg-surface text-ink-mute shadow-sm",
+        "border border-accent/15 bg-accent-soft text-accent shadow-sm",
         "transition-all duration-200 ease-out",
         "hover:-translate-y-0.5 hover:border-transparent hover:bg-gradient-to-br hover:from-accent hover:to-accent-deep hover:text-white hover:shadow-md",
         className,

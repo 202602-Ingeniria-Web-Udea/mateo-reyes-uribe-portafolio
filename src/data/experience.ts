@@ -10,13 +10,12 @@ import type { ExperienceItem } from "@/types";
  */
 export const experienceItems: ExperienceItem[] = [
   {
-    id: "udea-programming-assistant",
+    id: "udea-school-factory-monitor",
     institution: "Universidad de Antioquia",
-    title: "Programming Assistant",
+    title: "School Factory Monitor",
     role: "Part-time",
-    period: "Jun 2025 — Present",
     description:
-      "Full-stack maintenance of the Systems Engineering department portal, with a minimum of two monthly deployments and no reported downtime. I handle change requests from the academic team directly in production, orchestrate the deployment environments with Docker, and support the department's network infrastructure.",
+      "Support for the Scrum ceremonies and backlog management of the school factory's development teams, with hands-on involvement across backend development, databases, quality assurance, requirements gathering and overall project follow-up.",
   },
   {
     id: "udea-systems-engineering",
