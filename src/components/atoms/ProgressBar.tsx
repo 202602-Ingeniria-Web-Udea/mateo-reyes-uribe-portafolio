@@ -52,7 +52,7 @@ export function ProgressBar({
       style={{ height: thickness }}
     >
       <motion.div
-        className="h-full rounded-full bg-gradient-to-r from-accent-deep via-accent to-accent-bright shadow-[0_0_10px_rgb(99_102_241/0.6)]"
+        className="h-full rounded-full bg-gradient-to-r from-accent-deep via-violet-deep to-accent shadow-[0_0_12px_rgb(129_140_248/0.7)]"
         initial={{ width: 0 }}
         whileInView={{ width: `${value}%` }}
         viewport={{ once: true, amount: 0.6 }}

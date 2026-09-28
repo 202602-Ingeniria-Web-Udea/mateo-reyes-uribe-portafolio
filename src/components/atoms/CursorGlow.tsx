@@ -47,7 +47,7 @@ export function CursorGlow() {
     <motion.div
       aria-hidden="true"
       style={{ x: springX, y: springY, opacity }}
-      className="pointer-events-none fixed left-0 top-0 z-0 -ml-[260px] -mt-[260px] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgb(99_102_241/0.22),rgb(79_70_229/0.08)_40%,transparent_70%)] transition-opacity duration-500"
+      className="pointer-events-none fixed left-0 top-0 z-0 -ml-[260px] -mt-[260px] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgb(129_140_248/0.16),rgb(124_58_237/0.08)_40%,transparent_70%)] transition-opacity duration-500"
     />
   );
 }

@@ -63,7 +63,7 @@ export function MobileHeader({ className }: MobileHeaderProps) {
     <>
       <header
         className={cn(
-          "sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-line bg-surface/80 px-5 py-3.5 backdrop-blur-xl",
+          "sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-line bg-bg/70 px-5 py-3.5 backdrop-blur-xl",
           className,
         )}
       >
@@ -83,7 +83,7 @@ export function MobileHeader({ className }: MobileHeaderProps) {
           aria-label="Open menu"
           aria-haspopup="dialog"
           aria-expanded={isOpen}
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-line bg-surface text-ink-mute shadow-sm transition-all duration-200 ease-out hover:border-accent/40 hover:text-accent hover:shadow-md"
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-line bg-surface text-ink-mute shadow-sm transition-all duration-200 ease-out hover:border-accent/50 hover:text-accent-bright hover:shadow-glow"
         >
           <Menu size={20} aria-hidden="true" />
         </button>
@@ -103,7 +103,7 @@ export function MobileHeader({ className }: MobileHeaderProps) {
                 <div
                   aria-hidden="true"
                   onClick={close}
-                  className="absolute inset-0 bg-ink/50 backdrop-blur-md"
+                  className="absolute inset-0 bg-black/70 backdrop-blur-md"
                 />
 
                 <motion.div

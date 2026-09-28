@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { AuroraBackground } from "@/components/atoms/AuroraBackground";
 import { CursorGlow } from "@/components/atoms/CursorGlow";
 import { ScrollProgress } from "@/components/atoms/ScrollProgress";
 import { SectionNav } from "@/components/organisms/SectionNav";
@@ -42,6 +43,7 @@ export interface MainLayoutProps {
 export function MainLayout({ children, className }: MainLayoutProps) {
   return (
     <div className={cn("min-h-screen", className)}>
+      <AuroraBackground />
       <ScrollProgress />
       <CursorGlow />
       <MobileHeader className="lg:hidden" />
@@ -62,7 +64,7 @@ export function MainLayout({ children, className }: MainLayoutProps) {
           desplazamiento y podría anular el `sticky` de cualquier elemento que
           se meta aquí dentro más adelante.
         */}
-        <div className="surface-grid relative min-w-0 overflow-x-clip px-5 sm:px-8 lg:px-6">
+        <div className="relative min-w-0 overflow-x-clip px-5 sm:px-8 lg:px-6">
           {/*
             Halo del accent detrás de la cabecera. Es decorativo y no
             intercepta el ratón, de modo que no tapa nada de lo que hay

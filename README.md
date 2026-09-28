@@ -39,7 +39,8 @@ editing one file and pushing.
 
 - ⚡ Static generation with Next.js App Router — prerendered HTML, no runtime.
 - 🧱 Components organised with **Atomic Design** (atoms → molecules → organisms → templates).
-- 🎨 A single-accent design system: one indigo over a long neutral ramp.
+- 🎨 A dark neon design system: indigo and violet over a near-black aurora.
+- 🎬 Heavy but accessible motion: count-ups, magnetic buttons, text reveals, parallax.
 - ♿ WCAG AA contrast on every text pair, focus-trapped dialogs, reduced-motion support.
 - 🔒 Fully typed content: add a field to a type and the compiler points at every data file that needs it.
 
@@ -178,27 +179,39 @@ src/
 
 ## Design system
 
-The direction is **editorial**: a clearly grey page background so white cards
-float on it, strong typographic hierarchy, numbered section labels in small
-caps and generous spacing. Indigo is the only brand colour — anything that
-looks like more colour is a gradient or an opacity of that same tone.
+The direction is a **dark neon editorial**: a near-black background with a
+slowly drifting indigo/violet aurora, glassy sidebars, strong typographic
+hierarchy and numbered section labels in small caps.
+
+Token names are semantic, not literal — `ink` is "the strongest text" even
+though it is now near-white — so flipping to dark didn't require renaming a
+single class. On a dark surface the classic indigo `#4F46E5` only reaches 3:1
+as text, so it is split into two roles: a light indigo for text and icons, and
+the deep indigo for fills that carry white text.
 
 | Swatch | Token | Value | Use |
 | :---: | --- | --- | --- |
-| ![](https://img.shields.io/badge/-%20-4F46E5?style=flat-square) | `accent` | `#4F46E5` | CTAs, links, progress, hover |
-| ![](https://img.shields.io/badge/-%20-4338CA?style=flat-square) | `accent-deep` | `#4338CA` | Accent gradients |
-| ![](https://img.shields.io/badge/-%20-1E1B4B?style=flat-square) | `accent-night` | `#1E1B4B` | Dark blocks |
-| ![](https://img.shields.io/badge/-%20-EEF2FF?style=flat-square) | `accent-soft` | `#EEF2FF` | Tag and icon backgrounds |
-| ![](https://img.shields.io/badge/-%20-0B0D10?style=flat-square) | `ink` | `#0B0D10` | Headings |
-| ![](https://img.shields.io/badge/-%20-1C1F26?style=flat-square) | `ink-soft` | `#1C1F26` | Body copy |
-| ![](https://img.shields.io/badge/-%20-5D6473?style=flat-square) | `muted` | `#5D6473` | Supporting text |
-| ![](https://img.shields.io/badge/-%20-E4E6EB?style=flat-square) | `line` | `#E4E6EB` | Borders |
-| ![](https://img.shields.io/badge/-%20-E9ECF2?style=flat-square) | `bg` | `#E9ECF2` | Page background |
-| ![](https://img.shields.io/badge/-%20-15803D?style=flat-square) | `success` | `#15803D` | "Available" status |
+| ![](https://img.shields.io/badge/-%20-818CF8?style=flat-square) | `accent` | `#818CF8` | Accent text, icons, borders |
+| ![](https://img.shields.io/badge/-%20-4F46E5?style=flat-square) | `accent-deep` | `#4F46E5` | Fills with white text |
+| ![](https://img.shields.io/badge/-%20-A78BFA?style=flat-square) | `violet` | `#A78BFA` | Second neon accent, gradients |
+| ![](https://img.shields.io/badge/-%20-7C3AED?style=flat-square) | `violet-deep` | `#7C3AED` | Neon gradient end |
+| ![](https://img.shields.io/badge/-%20-F4F5FB?style=flat-square) | `ink` | `#F4F5FB` | Headings |
+| ![](https://img.shields.io/badge/-%20-D4D7E3?style=flat-square) | `ink-soft` | `#D4D7E3` | Body copy |
+| ![](https://img.shields.io/badge/-%20-8D93A8?style=flat-square) | `muted` | `#8D93A8` | Supporting text |
+| ![](https://img.shields.io/badge/-%20-262A3D?style=flat-square) | `line` | `#262A3D` | Borders |
+| ![](https://img.shields.io/badge/-%20-10121C?style=flat-square) | `surface` | `#10121C` | Cards |
+| ![](https://img.shields.io/badge/-%20-07080F?style=flat-square) | `bg` | `#07080F` | Page background |
+| ![](https://img.shields.io/badge/-%20-34D399?style=flat-square) | `success` | `#34D399` | "Available" status |
+
+**Motion:** aurora background, scroll progress bar, cursor-following glow,
+masked word-by-word headline reveals, a terminal-style scrambled role,
+count-up stats, magnetic CTAs, 3D-tilting project cards, a rotating neon
+border, two opposite-direction tech marquees and scroll parallax — all of it
+disabled under `prefers-reduced-motion`.
 
 Conventions: `rounded-xl` on cards, `rounded-full` on avatars, tags and circular
-icons, `rounded-md` on buttons, `shadow-sm` at rest and `shadow-md` on hover.
-Large type sizes use `clamp()` so they scale continuously with the viewport.
+icons, `rounded-md` on buttons. Large type sizes use `clamp()` so they scale
+continuously with the viewport.
 
 ---
 

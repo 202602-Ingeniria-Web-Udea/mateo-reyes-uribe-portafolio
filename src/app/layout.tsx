@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -13,6 +13,12 @@ export const metadata: Metadata = {
   title: "Mateo Reyes Uribe — Backend Developer",
   description:
     "Systems Engineering student at Universidad de Antioquia building backend services with Java, Spring Boot and PostgreSQL. Open to internships for 2027-1.",
+};
+
+// Tiñe la barra del navegador móvil del mismo negro que el fondo.
+export const viewport: Viewport = {
+  themeColor: "#07080F",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

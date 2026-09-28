@@ -87,7 +87,7 @@ export function PortfolioSection({
             onClick={() => scrollByCard(-1)}
             aria-label="Previous projects"
             aria-controls={`${id}-carousel`}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink-mute shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:shadow-md"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface/70 text-ink-mute shadow-sm backdrop-blur transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent-bright hover:shadow-glow"
           >
             <ChevronLeft size={18} aria-hidden="true" />
           </button>
@@ -96,7 +96,7 @@ export function PortfolioSection({
             onClick={() => scrollByCard(1)}
             aria-label="Next projects"
             aria-controls={`${id}-carousel`}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink-mute shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:shadow-md"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface/70 text-ink-mute shadow-sm backdrop-blur transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent-bright hover:shadow-glow"
           >
             <ChevronRight size={18} aria-hidden="true" />
           </button>
@@ -167,14 +167,14 @@ export function PortfolioSection({
                     href={selectedProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-10 items-center gap-2 rounded-md bg-gradient-to-br from-accent-bright via-accent to-accent-deep px-4 text-sm font-semibold tracking-snug text-white shadow-glow transition-all duration-200 ease-out hover:-translate-y-0.5 hover:brightness-110"
+                    className="bg-neon inline-flex h-10 items-center gap-2 rounded-md px-4 text-sm font-semibold tracking-snug text-white shadow-glow transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-glow-lg"
                   >
                     <ExternalLink size={16} aria-hidden="true" />
                     Visit live site
                   </a>
                 )}
                 {selectedProject.comingSoon && (
-                  <span className="inline-flex h-10 items-center gap-2 rounded-md border border-dashed border-accent/40 bg-accent-soft px-4 text-sm font-semibold tracking-snug text-accent-deep">
+                  <span className="inline-flex h-10 items-center gap-2 rounded-md border border-dashed border-violet/50 bg-accent-soft px-4 text-sm font-semibold tracking-snug text-violet">
                     <Clock size={16} aria-hidden="true" />
                     Live demo coming soon
                   </span>
@@ -184,7 +184,7 @@ export function PortfolioSection({
                     href={selectedProject.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface px-4 text-sm font-medium tracking-snug text-ink-soft shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:shadow-md"
+                    className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface-raised px-4 text-sm font-medium tracking-snug text-ink-soft shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent-bright hover:shadow-glow"
                   >
                     <GitBranch size={16} aria-hidden="true" />
                     View code

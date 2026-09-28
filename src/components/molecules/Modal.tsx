@@ -73,7 +73,7 @@ export function Modal({
           <div
             aria-hidden="true"
             onClick={onClose}
-            className="absolute inset-0 bg-ink/50 backdrop-blur-md"
+            className="absolute inset-0 bg-black/70 backdrop-blur-md"
           />
 
           <motion.div
@@ -95,7 +95,7 @@ export function Modal({
             transition={{ duration: 0.2, ease: "easeOut" }}
             className={cn(
               "relative z-10 max-h-dialog w-full max-w-lg overflow-y-auto rounded-xl",
-              "border border-line bg-surface p-6 shadow-lg outline-none sm:p-9",
+              "border border-line bg-surface p-6 shadow-glow-lg outline-none sm:p-9",
               className,
             )}
           >

@@ -70,18 +70,19 @@ export function ProfilePanel({ className }: ProfilePanelProps) {
   const statusLabel = STATUS_LABELS[profile.status];
 
   return (
-    <div className={cn("bg-surface", className)}>
+    <div className={className}>
       {/*
-        Cabecera de la ficha: una portada indigo con textura de rejilla y la
-        foto montada a caballo entre la portada y el blanco.
+        Cabecera de la ficha: una portada neón con textura de rejilla y la
+        foto montada a caballo entre la portada y el cuerpo de la ficha.
       */}
       <div className="relative flex flex-col items-center px-6 pb-7 pt-12 text-center">
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-28 overflow-hidden bg-gradient-to-br from-accent-night via-accent-deep to-accent"
+          className="absolute inset-x-0 top-0 h-28 overflow-hidden bg-gradient-to-br from-accent-night via-accent-deep to-violet-deep"
         >
-          <span className="surface-grid absolute inset-0 opacity-40 invert" />
-          <span className="absolute -right-8 -top-10 h-32 w-32 animate-float rounded-full bg-accent-bright/50 blur-2xl" />
+          <span className="surface-grid absolute inset-0 opacity-60" />
+          <span className="absolute -right-8 -top-10 h-32 w-32 animate-float rounded-full bg-violet/50 blur-2xl" />
+          <span className="absolute -bottom-12 -left-6 h-28 w-28 animate-float rounded-full bg-accent/40 blur-2xl [animation-delay:-3s]" />
         </div>
         <Avatar
           src={profile.avatarUrl}

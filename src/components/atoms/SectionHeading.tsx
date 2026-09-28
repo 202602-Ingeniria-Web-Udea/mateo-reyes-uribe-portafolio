@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import {
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { Eyebrow } from "@/components/atoms/Eyebrow";
 import {
   ENTRANCE_TRANSITION,
@@ -16,6 +17,15 @@ import {
   staggerContainer,
 } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+
+const wordReveal: Variants = {
+  hidden: { y: "110%", rotate: 3 },
+  visible: {
+    y: "0%",
+    rotate: 0,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 export interface SectionHeadingProps {
   title: string;
@@ -95,14 +105,33 @@ export function SectionHeading({
           />
         </motion.div>
       )}
+      {/*
+        Cada palabra sube desde detrás de su propia máscara. El `aria-label`
+        lleva el título entero porque las palabras se ocultan una a una.
+      */}
       <motion.h2
-        variants={item}
-        transition={ENTRANCE_TRANSITION}
+        variants={staggerContainer(0.06)}
         id={id}
+        aria-label={title}
         className="relative text-title font-bold leading-heading tracking-tighter text-ink"
       >
-        {title}
-        <span aria-hidden="true" className="text-accent">
+        {title.split(" ").map((word, wordIndex) => (
+          <Fragment key={`${word}-${wordIndex}`}>
+            {wordIndex > 0 && " "}
+            <span
+              aria-hidden="true"
+              className="-mb-2 inline-block overflow-hidden pb-2 align-bottom"
+            >
+              <motion.span
+                variants={shouldReduceMotion ? noMotion : wordReveal}
+                className="inline-block"
+              >
+                {word}
+              </motion.span>
+            </span>
+          </Fragment>
+        ))}
+        <span aria-hidden="true" className="text-gradient-accent">
           .
         </span>
       </motion.h2>

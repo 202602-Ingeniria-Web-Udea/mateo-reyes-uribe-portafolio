@@ -39,7 +39,8 @@ export function ExperienceSection({
         subtitle="And what I took from each stage."
       />
 
-      <div className="mt-12 rounded-xl border border-line bg-surface p-8 shadow-sm sm:p-10">
+      {/* `neon-border` (globals.css): borde con un barrido de luz que gira. */}
+      <div className="neon-border mt-12 rounded-xl p-8 shadow-md sm:p-10">
         {experienceItems.map((item, index) => (
           <Fragment key={item.id}>
             {index > 0 && <Divider className="my-9" />}

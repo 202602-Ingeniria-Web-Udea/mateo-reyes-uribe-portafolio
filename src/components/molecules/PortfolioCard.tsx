@@ -112,10 +112,10 @@ export function PortfolioCard({
         {/* Velo indigo que sube desde abajo al pasar el cursor. */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-accent-night/80 via-accent/25 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/90 via-violet-deep/25 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         />
         {comingSoon && (
-          <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-accent-night/90 px-3 py-1 text-xs font-semibold tracking-snug text-white shadow-md backdrop-blur">
+          <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-violet/40 bg-bg/80 px-3 py-1 text-xs font-semibold tracking-snug text-violet shadow-glow backdrop-blur">
             <Clock size={12} aria-hidden="true" />
             Coming soon
           </span>
@@ -123,7 +123,7 @@ export function PortfolioCard({
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-lg font-semibold tracking-snug text-ink transition-colors duration-300 group-hover:text-accent-deep">
+        <h3 className="text-lg font-semibold tracking-snug text-ink transition-colors duration-300 group-hover:text-accent-bright">
           {title}
         </h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
@@ -146,7 +146,7 @@ export function PortfolioCard({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visit the live site of ${title}`}
-              className="group/live inline-flex h-9 items-center gap-1.5 rounded-md border border-line bg-surface px-3.5 text-sm font-medium tracking-snug text-ink-soft shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:shadow-md"
+              className="group/live inline-flex h-9 items-center gap-1.5 rounded-md border border-line bg-surface-raised px-3.5 text-sm font-medium tracking-snug text-ink-soft shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent-bright hover:shadow-glow"
             >
               Visit site
               <ArrowUpRight

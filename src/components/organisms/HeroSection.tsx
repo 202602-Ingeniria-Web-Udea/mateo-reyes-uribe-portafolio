@@ -12,10 +12,14 @@ import type { Variants } from "framer-motion";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { Avatar } from "@/components/atoms/Avatar";
 import { Button } from "@/components/atoms/Button";
+import { CountUp } from "@/components/atoms/CountUp";
 import { Eyebrow } from "@/components/atoms/Eyebrow";
+import { Magnetic } from "@/components/atoms/Magnetic";
+import { ScrambleText } from "@/components/atoms/ScrambleText";
 import { InfoRow } from "@/components/molecules/InfoRow";
 import { Modal } from "@/components/molecules/Modal";
-import { TechMarquee } from "@/components/molecules/TechMarquee";
+import { TECH, TechMarquee } from "@/components/molecules/TechMarquee";
+import { portfolioItems } from "@/data/portfolio";
 import { profile } from "@/data/profile";
 import { noMotion, staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -40,22 +44,41 @@ const wordReveal: Variants = {
   },
 };
 
+/**
+ * Rol con la palabra destacada en degradado neón, que además se "descifra"
+ * al cargar. Si la palabra no aparece en el rol, se dibuja el rol entero.
+ */
 function highlightRole(role: string, highlight?: string): ReactNode {
-  if (!highlight) return role;
-
-  const start = role.indexOf(highlight);
-  if (start === -1) return role;
+  const start = highlight ? role.indexOf(highlight) : -1;
+  if (!highlight || start === -1) {
+    return <ScrambleText text={role} delay={500} />;
+  }
 
   const end = start + highlight.length;
 
   return (
     <>
       {role.slice(0, start)}
-      <span className="text-accent">{role.slice(start, end)}</span>
+      <ScrambleText
+        text={role.slice(start, end)}
+        delay={500}
+        className="text-gradient-accent"
+      />
       {role.slice(end)}
     </>
   );
 }
+
+// Cifras del Hero, calculadas desde los datos: si se añade un proyecto o una
+// demo, el número se actualiza solo.
+const STATS = [
+  { value: portfolioItems.length, label: "Projects built" },
+  {
+    value: portfolioItems.filter((item) => item.liveUrl).length,
+    label: "Live demos",
+  },
+  { value: TECH.length, label: "Technologies" },
+];
 
 export interface HeroSectionProps {
   /** Ancla para la navegación. */
@@ -108,7 +131,7 @@ export function HeroSection({ id = "profile", className }: HeroSectionProps) {
             variants={staggerContainer(0.09)}
             id={`${id}-title`}
             aria-label={profile.name}
-            className="mt-7 max-w-md text-display font-extrabold leading-display tracking-tightest md:mx-0"
+            className="mt-7 max-w-md text-display font-extrabold leading-display tracking-tightest drop-shadow-[0_0_28px_rgb(129_140_248/0.35)] md:mx-0"
           >
             {/* El espacio entre palabras es el que permite partir la línea. */}
             {profile.name.split(" ").map((word, index) => (
@@ -131,15 +154,22 @@ export function HeroSection({ id = "profile", className }: HeroSectionProps) {
 
           <motion.p
             variants={item}
-            className="mt-3 text-lead font-semibold tracking-tighter text-ink-mute"
+            className="mt-3 font-mono text-lead font-semibold tracking-tight text-ink-mute"
           >
+            <span aria-hidden="true" className="text-violet">
+              &gt;{" "}
+            </span>
             {highlightRole(profile.role, profile.roleHighlight)}
+            <span
+              aria-hidden="true"
+              className="ml-1 inline-block h-[1.1em] w-[0.55ch] translate-y-[0.15em] animate-blink bg-accent"
+            />
           </motion.p>
 
           <motion.span
             variants={item}
             aria-hidden="true"
-            className="mx-auto mt-7 block h-1 w-16 rounded-full bg-gradient-to-r from-accent-deep via-accent to-accent-bright md:mx-0 md:w-20"
+            className="mx-auto mt-7 block h-1 w-16 rounded-full bg-gradient-to-r from-accent-deep via-violet to-accent-bright shadow-[0_0_12px_rgb(167_139_250/0.7)] md:mx-0 md:w-20"
           />
 
           <motion.p
@@ -153,32 +183,60 @@ export function HeroSection({ id = "profile", className }: HeroSectionProps) {
             variants={item}
             className="mt-9 flex flex-wrap items-center justify-center gap-3 md:justify-start"
           >
-            <Button
-              onClick={() => setIsBioOpen(true)}
-              icon={ArrowUpRight}
-              iconPosition="right"
-              aria-haspopup="dialog"
-            >
-              About me
-            </Button>
+            <Magnetic>
+              <Button
+                onClick={() => setIsBioOpen(true)}
+                icon={ArrowUpRight}
+                iconPosition="right"
+                aria-haspopup="dialog"
+              >
+                About me
+              </Button>
+            </Magnetic>
 
-            <a
-              href={`mailto:${profile.email}`}
-              className="group/mail inline-flex h-11 items-center gap-2 rounded-md px-4 text-control font-medium tracking-snug text-ink-mute transition-colors duration-200 hover:text-accent"
-            >
-              <Mail
-                size={17}
-                aria-hidden="true"
-                className="transition-transform duration-200 ease-out group-hover/mail:-translate-y-0.5"
-              />
-              Email me
-            </a>
+            <Magnetic>
+              <a
+                href={`mailto:${profile.email}`}
+                className="group/mail inline-flex h-11 items-center gap-2 rounded-md border border-line bg-surface/60 px-5 text-control font-medium tracking-snug text-ink-soft backdrop-blur transition-all duration-200 hover:border-accent/50 hover:text-accent-bright hover:shadow-glow"
+              >
+                <Mail
+                  size={17}
+                  aria-hidden="true"
+                  className="transition-transform duration-200 ease-out group-hover/mail:-translate-y-0.5"
+                />
+                Email me
+              </a>
+            </Magnetic>
           </motion.div>
+
+          {/* Cifras: cuentan desde cero la primera vez que se ven. */}
+          <motion.dl
+            variants={item}
+            className="mt-10 grid grid-cols-3 gap-3 sm:max-w-md"
+          >
+            {STATS.map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-xl border border-line bg-surface/60 px-3 py-4 text-center shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow md:text-left md:px-4"
+              >
+                <dt className="sr-only">{stat.label}</dt>
+                <dd className="text-gradient-accent text-3xl font-extrabold tabular-nums tracking-tighter">
+                  <CountUp to={stat.value} />
+                </dd>
+                <dd
+                  aria-hidden="true"
+                  className="mt-1 text-xs font-medium leading-tight text-muted"
+                >
+                  {stat.label}
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
         </motion.div>
 
         {/*
           Marco del retrato: halo difuso detrás, un aro cónico que gira y la
-          foto encima con un borde blanco que la separa del aro. Todo flota.
+          foto encima con un borde oscuro que la separa del aro. Todo flota.
         */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.85 }}
@@ -194,7 +252,7 @@ export function HeroSection({ id = "profile", className }: HeroSectionProps) {
           <div className="animate-float">
             <span
               aria-hidden="true"
-              className="absolute -inset-12 rounded-full bg-gradient-to-br from-accent/35 via-accent-bright/15 to-transparent blur-3xl"
+              className="absolute -inset-12 rounded-full bg-gradient-to-br from-accent-deep/50 via-violet-deep/30 to-transparent blur-3xl"
             />
             <span
               aria-hidden="true"
@@ -208,7 +266,7 @@ export function HeroSection({ id = "profile", className }: HeroSectionProps) {
               priority
               className="relative border-4 border-surface shadow-lg"
             />
-            <span className="absolute -bottom-1 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-accent-night px-3.5 py-1.5 text-xs font-semibold tracking-snug text-white shadow-glow">
+            <span className="absolute -bottom-1 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full border border-accent/30 bg-bg/90 px-3.5 py-1.5 text-xs font-semibold tracking-snug text-ink shadow-glow backdrop-blur">
               <span aria-hidden="true" className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />

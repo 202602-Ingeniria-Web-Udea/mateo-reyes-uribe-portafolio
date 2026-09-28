@@ -26,10 +26,15 @@ export function RightSidebar({ className }: RightSidebarProps) {
   return (
     <aside
       className={cn(
-        "sticky top-0 flex h-screen w-social shrink-0 self-start items-center justify-center border-l border-line bg-surface shadow-sm",
+        "sticky top-0 flex h-screen w-social shrink-0 self-start flex-col items-center justify-center gap-6 border-l border-line bg-surface/75 shadow-lg backdrop-blur-xl",
         className,
       )}
     >
+      {/* Hilos de luz arriba y abajo: enmarcan los iconos en la columna. */}
+      <span
+        aria-hidden="true"
+        className="h-24 w-px bg-gradient-to-b from-transparent to-accent/60"
+      />
       <nav aria-label="Social links">
         <ul className="flex flex-col items-center gap-4">
           {socialLinks.map((link) => (
@@ -43,6 +48,10 @@ export function RightSidebar({ className }: RightSidebarProps) {
           ))}
         </ul>
       </nav>
+      <span
+        aria-hidden="true"
+        className="h-24 w-px bg-gradient-to-b from-violet/60 to-transparent"
+      />
     </aside>
   );
 }

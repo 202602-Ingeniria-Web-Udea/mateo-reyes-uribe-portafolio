@@ -62,7 +62,7 @@ export function SectionNav({ className }: SectionNavProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "pointer-events-auto rounded-full border border-white/60 bg-surface/70 p-1.5 shadow-lg ring-1 ring-accent/10 backdrop-blur-xl",
+        "pointer-events-auto rounded-full border border-white/10 bg-surface/70 p-1.5 shadow-lg ring-1 ring-accent/15 backdrop-blur-xl",
         className,
       )}
     >
@@ -76,7 +76,7 @@ export function SectionNav({ className }: SectionNavProps) {
                 aria-current={isActive ? "location" : undefined}
                 className={cn(
                   "relative flex h-10 items-center gap-2 rounded-full px-3 text-sm font-medium tracking-snug transition-colors duration-200 sm:px-4",
-                  isActive ? "text-white" : "text-ink-mute hover:text-accent",
+                  isActive ? "text-white" : "text-ink-mute hover:text-accent-bright",
                 )}
               >
                 {isActive && (
@@ -84,7 +84,7 @@ export function SectionNav({ className }: SectionNavProps) {
                     layoutId="section-nav-active"
                     aria-hidden="true"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    className="absolute inset-0 rounded-full bg-gradient-to-br from-accent-bright via-accent to-accent-deep shadow-glow"
+                    className="absolute inset-0 rounded-full bg-gradient-to-br from-accent-deep to-violet-deep shadow-glow"
                   />
                 )}
                 <Icon size={16} aria-hidden="true" className="relative" />

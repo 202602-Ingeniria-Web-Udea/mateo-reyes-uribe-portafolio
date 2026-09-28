@@ -26,7 +26,7 @@ export function LeftSidebar({ className }: LeftSidebarProps) {
     <aside
       aria-label="Profile"
       className={cn(
-        "sticky top-0 h-screen w-sidebar shrink-0 self-start overflow-y-auto border-r border-line bg-surface shadow-sm",
+        "sticky top-0 h-screen w-sidebar shrink-0 self-start overflow-y-auto border-r border-line bg-surface/75 shadow-lg backdrop-blur-xl",
         className,
       )}
     >

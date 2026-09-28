@@ -39,34 +39,46 @@ const config: Config = {
     extend: {
       colors: {
         /*
-         * Escala de neutros de ocho pasos. La versión anterior tenía cuatro y
-         * se quedaba corta: sin tonos intermedios, un título, una etiqueta y
-         * un texto de apoyo acababan pesando lo mismo.
+         * Tema oscuro. Los nombres son semánticos y no literales: `ink` sigue
+         * siendo "el texto más fuerte" aunque ahora sea casi blanco, así los
+         * componentes no tuvieron que renombrar ni una clase al invertir el
+         * tema. Contrastes calculados sobre `surface` (#10121C).
          */
         ink: {
-          DEFAULT: "#0B0D10", // titulares
-          soft: "#1C1F26", // texto de lectura
-          mute: "#454A55", // etiquetas y texto terciario
+          DEFAULT: "#F4F5FB", // titulares — 17:1
+          soft: "#D4D7E3", // texto de lectura — 12:1
+          mute: "#A6ABBE", // etiquetas y texto terciario — 8.2:1
         },
-        muted: "#5D6473", // texto de apoyo
+        muted: "#8D93A8", // texto de apoyo — 5.9:1 (AA)
         line: {
-          DEFAULT: "#E4E6EB", // bordes visibles
-          soft: "#F0F1F4", // separadores y pistas de progreso
+          DEFAULT: "#262A3D", // bordes visibles
+          soft: "#1A1D2C", // separadores y pistas de progreso
         },
-        surface: "#FFFFFF",
-        bg: "#E9ECF2",
-        // Único color de marca, en una escala del mismo tono. `bright` solo
-        // sirve para degradados y texto grande; `night` para bloques oscuros.
+        surface: {
+          DEFAULT: "#10121C", // cards
+          raised: "#171A28", // superficies dentro de una card
+        },
+        bg: "#07080F",
+        /*
+         * Indigo neón. Sobre fondo oscuro, el indigo clásico (#4F46E5) solo
+         * da 3:1 como texto, así que se reparte en dos papeles: `DEFAULT` y
+         * `bright` son claros y sirven para texto, iconos y bordes; `deep`
+         * es el de siempre y se reserva para rellenos con texto blanco (6.3:1).
+         */
         accent: {
-          DEFAULT: "#4F46E5",
-          bright: "#6366F1",
-          deep: "#4338CA",
-          night: "#1E1B4B",
-          soft: "#EEF2FF",
+          DEFAULT: "#818CF8", // texto e iconos — 6.2:1
+          bright: "#A5B4FC",
+          deep: "#4F46E5", // rellenos con texto blanco
+          night: "#1E1B4B", // bloques oscuros
+          soft: "#1A1B3A", // fondos tintados de tags e iconos
         },
-        // Estado "disponible". Oscurecido dos veces por contraste, para
-        // cumplir AA tanto sobre las cards como sobre el fondo; ver globals.css.
-        success: "#147235",
+        // Segundo acento neón, solo para degradados y brillos junto al indigo.
+        violet: {
+          DEFAULT: "#A78BFA", // texto — 6.8:1
+          deep: "#7C3AED", // rellenos con texto blanco — 5.7:1
+        },
+        // Estado "disponible". Aclarado para el fondo oscuro — 9.7:1.
+        success: "#34D399",
       },
       fontFamily: {
         sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
@@ -148,19 +160,34 @@ const config: Config = {
       },
       /**
        * Elevación del sistema: `shadow-sm` en reposo, `shadow-md` en hover.
-       * Tintadas con el color de tinta y con un radio amplio y poca opacidad,
-       * que es lo que distingue una sombra cuidada de un borde gris.
+       * Sobre fondo oscuro una sombra negra apenas se ve, así que cada nivel
+       * suma un filo de luz arriba (`inset`) que es lo que despega la card.
        */
       boxShadow: {
-        sm: "0 1px 2px 0 rgb(11 13 16 / 0.04), 0 1px 3px -1px rgb(11 13 16 / 0.03)",
+        sm: "inset 0 1px 0 0 rgb(255 255 255 / 0.04), 0 1px 3px 0 rgb(0 0 0 / 0.5)",
         DEFAULT:
-          "0 2px 6px -1px rgb(11 13 16 / 0.06), 0 1px 3px -1px rgb(11 13 16 / 0.04)",
-        md: "0 8px 24px -8px rgb(11 13 16 / 0.12), 0 3px 8px -4px rgb(11 13 16 / 0.06)",
-        lg: "0 24px 56px -16px rgb(11 13 16 / 0.16), 0 8px 20px -12px rgb(11 13 16 / 0.08)",
-        /** Resplandor del accent para el botón principal y las cards en hover. */
-        glow: "0 10px 30px -8px rgb(79 70 229 / 0.55), 0 4px 12px -6px rgb(79 70 229 / 0.35)",
+          "inset 0 1px 0 0 rgb(255 255 255 / 0.05), 0 4px 12px -2px rgb(0 0 0 / 0.5)",
+        md: "inset 0 1px 0 0 rgb(255 255 255 / 0.06), 0 16px 40px -12px rgb(0 0 0 / 0.7)",
+        lg: "inset 0 1px 0 0 rgb(255 255 255 / 0.06), 0 32px 80px -20px rgb(0 0 0 / 0.8)",
+        /** Resplandor neón para el botón principal y las cards en hover. */
+        glow: "0 0 0 1px rgb(129 140 248 / 0.35), 0 12px 40px -8px rgb(124 58 237 / 0.55), 0 4px 20px -4px rgb(99 102 241 / 0.45)",
+        "glow-lg":
+          "0 0 0 1px rgb(129 140 248 / 0.45), 0 24px 70px -12px rgb(124 58 237 / 0.6), 0 8px 32px -6px rgb(99 102 241 / 0.5)",
       },
       keyframes: {
+        aurora: {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1)" },
+          "33%": { transform: "translate3d(8%, -6%, 0) scale(1.15)" },
+          "66%": { transform: "translate3d(-6%, 5%, 0) scale(0.92)" },
+        },
+        "marquee-reverse": {
+          from: { transform: "translateX(-50%)" },
+          to: { transform: "translateX(0)" },
+        },
+        blink: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
         "gradient-pan": {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
@@ -181,12 +208,16 @@ const config: Config = {
       animation: {
         "gradient-pan": "gradient-pan 8s ease-in-out infinite",
         marquee: "marquee 32s linear infinite",
+        "marquee-reverse": "marquee-reverse 38s linear infinite",
+        aurora: "aurora 18s ease-in-out infinite",
+        "aurora-slow": "aurora 26s ease-in-out infinite reverse",
+        blink: "blink 1s step-end infinite",
         float: "float 7s ease-in-out infinite",
         "spin-slow": "spin 12s linear infinite",
         shine: "shine 0.9s ease-out",
       },
       ringColor: {
-        DEFAULT: "#4F46E5",
+        DEFAULT: "#818CF8",
       },
       transitionDuration: {
         DEFAULT: "200ms",

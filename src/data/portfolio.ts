@@ -60,7 +60,7 @@ export const portfolioItems: PortfolioItem[] = [
     shortDescription:
       "This site: a typed, static résumé built with Next.js and deployed on Vercel.",
     longDescription:
-      "The portfolio you are looking at. A 100% static Next.js site where every piece of content lives in typed data files, components are organised with Atomic Design, and the design system is a single indigo accent over a long neutral ramp. Every text pair meets WCAG AA contrast, dialogs trap focus, and all animation respects reduced-motion preferences.",
+      "The portfolio you are looking at. A 100% static Next.js site where every piece of content lives in typed data files, components are organised with Atomic Design, and the design system is a dark neon theme with an animated indigo/violet aurora. Every text pair meets WCAG AA contrast, dialogs trap focus, and all animation respects reduced-motion preferences.",
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
     imageUrl: "/images/portfolio/portfolio.png",
     liveUrl: "https://mateo-reyes-uribe-portafolio.vercel.app",

@@ -60,18 +60,18 @@ export function ExperienceItem({
       {/* Eje de la cronología, centrado bajo el punto. */}
       <span
         aria-hidden="true"
-        className="absolute left-[5px] top-2 h-full w-0.5 rounded-full bg-gradient-to-b from-accent via-accent/30 to-transparent"
+        className="absolute left-[5px] top-2 h-full w-0.5 rounded-full bg-gradient-to-b from-accent via-violet/30 to-transparent"
       />
       {/* Hito, a la altura del nombre de la institución. */}
       <span aria-hidden="true" className="absolute left-0 top-1 flex h-3 w-3">
         {index === 0 && (
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
         )}
-        <span className="relative inline-flex h-3 w-3 rounded-full bg-gradient-to-br from-accent-bright to-accent-deep ring-4 ring-accent-soft transition-transform duration-300 ease-out group-hover:scale-125" />
+        <span className="relative inline-flex h-3 w-3 rounded-full bg-gradient-to-br from-accent-bright to-violet-deep shadow-[0_0_12px_rgb(129_140_248/0.9)] ring-4 ring-accent-soft transition-transform duration-300 ease-out group-hover:scale-125" />
       </span>
 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <h3 className="text-lg font-semibold tracking-snug text-ink transition-colors duration-300 group-hover:text-accent-deep">
+        <h3 className="text-lg font-semibold tracking-snug text-ink transition-colors duration-300 group-hover:text-accent-bright">
           {institution}
         </h3>
         {period && <Tag icon="Calendar">{period}</Tag>}

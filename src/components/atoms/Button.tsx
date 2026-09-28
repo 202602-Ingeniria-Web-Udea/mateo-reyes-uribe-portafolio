@@ -24,14 +24,13 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANTS: Record<ButtonVariant, string> = {
   /*
-   * El degradado va del accent al mismo tono más profundo, así que sigue
-   * siendo un solo color de marca. Sobre un relleno plano, un degradado muy
-   * corto es lo que separa un botón cuidado de uno por defecto.
+   * Relleno neón indigo → violeta (`bg-neon`, en globals.css) que se desliza
+   * en hover. Ambos extremos pasan AA con texto blanco.
    */
   primary:
-    "relative overflow-hidden bg-gradient-to-br from-accent-bright via-accent to-accent-deep text-white shadow-glow hover:-translate-y-0.5 hover:brightness-110",
+    "relative overflow-hidden bg-neon text-white shadow-glow hover:-translate-y-0.5 hover:shadow-glow-lg",
   secondary:
-    "border border-line bg-surface text-ink-soft shadow-sm hover:border-accent/40 hover:text-accent hover:shadow-md",
+    "border border-line bg-surface/60 text-ink-soft shadow-sm backdrop-blur hover:border-accent/50 hover:text-accent-bright hover:shadow-glow",
   ghost: "text-ink-mute hover:bg-line-soft hover:text-ink",
 };
 

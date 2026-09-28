@@ -2,37 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Ángulo animable para el borde neón giratorio. Sin `@property`, el navegador
+ * trata la variable como texto y no puede interpolarla: el borde saltaría de
+ * 0° a 360° de golpe en vez de girar.
+ */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
 @layer base {
   :root {
     /*
-     * Paleta — espejo de `theme.extend.colors` en tailwind.config.ts
+     * Paleta — espejo de `theme.extend.colors` en tailwind.config.ts.
      *
-     * La escala de neutros es larga a propósito. La primera versión tenía
-     * solo cuatro grises y eso aplanaba la interfaz: sin pasos intermedios,
-     * todo el texto secundario acababa del mismo tono y las separaciones
-     * pesaban igual que los bordes de las cards.
+     * Tema oscuro con indigo y violeta neón. Los nombres son semánticos:
+     * `ink` es el texto más fuerte aunque ahora sea casi blanco.
      */
-    --color-ink: #0b0d10; /* titulares */
-    --color-ink-soft: #1c1f26; /* texto de lectura */
-    --color-ink-mute: #454a55; /* etiquetas y texto terciario */
-    --color-muted: #5d6473; /* texto de apoyo */
-    --color-line: #e4e6eb; /* bordes visibles */
-    --color-line-soft: #f0f1f4; /* separadores y pistas de progreso */
-    --color-surface: #ffffff; /* cards */
-    --color-bg: #e9ecf2; /* fondo general */
+    --color-ink: #f4f5fb; /* titulares */
+    --color-ink-soft: #d4d7e3; /* texto de lectura */
+    --color-ink-mute: #a6abbe; /* etiquetas y texto terciario */
+    --color-muted: #8d93a8; /* texto de apoyo */
+    --color-line: #262a3d; /* bordes visibles */
+    --color-line-soft: #1a1d2c; /* separadores y pistas de progreso */
+    --color-surface: #10121c; /* cards */
+    --color-surface-raised: #171a28;
+    --color-bg: #07080f; /* fondo general */
 
-    /* Único color de marca, en una escala del mismo tono. */
-    --color-accent: #4f46e5;
-    --color-accent-bright: #6366f1; /* degradados y texto grande */
-    --color-accent-deep: #4338ca;
-    --color-accent-night: #1e1b4b; /* bloques oscuros */
-    --color-accent-soft: #eef2ff;
+    --color-accent: #818cf8; /* texto e iconos de acento */
+    --color-accent-bright: #a5b4fc;
+    --color-accent-deep: #4f46e5; /* rellenos con texto blanco */
+    --color-accent-night: #1e1b4b;
+    --color-accent-soft: #1a1b3a;
+    --color-violet: #a78bfa;
+    --color-violet-deep: #7c3aed;
 
-    --color-success: #15803d; /* estado "disponible" */
+    --color-success: #34d399; /* estado "disponible" */
 
     /* Radios del sistema */
     --radius-card: 0.75rem; /* rounded-xl  → cards */
     --radius-button: 0.375rem; /* rounded-md  → botones */
+
+    /* Barras de desplazamiento y controles nativos en oscuro. */
+    color-scheme: dark;
   }
 
   html {
@@ -61,7 +81,7 @@
   }
 
   ::selection {
-    background-color: var(--color-accent);
+    background-color: var(--color-violet-deep);
     color: #ffffff;
   }
 
@@ -69,6 +89,12 @@
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
     border-radius: 2px;
+  }
+
+  /* Barra de scroll fina y teñida, en lugar de la gris del sistema. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -102,51 +128,96 @@
   }
 
   /*
-   * Rejilla muy tenue sobre el fondo.
-   *
-   * Un fondo liso, por gris que sea, sigue leyéndose como un hueco. Una
-   * retícula de 32 px al 40 % del color de borde le da materia sin competir
-   * con nada: se percibe como textura, no como un patrón.
+   * Rejilla muy tenue sobre el fondo. En oscuro las líneas son de luz, no de
+   * tinta, y se desvanecen hacia abajo para no competir con el contenido.
    */
   .surface-grid {
     background-image:
-      linear-gradient(to right, rgb(11 13 16 / 0.035) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(11 13 16 / 0.035) 1px, transparent 1px);
-    background-size: 32px 32px;
+      linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .mask-fade-down {
+    mask-image: linear-gradient(to bottom, #000 0%, #000 30%, transparent 90%);
   }
 
   /*
-   * Halo tenue del accent detrás de la cabecera. Es un degradado radial muy
-   * abierto y con poca opacidad: da profundidad al fondo plano sin llegar a
-   * leerse como un color, así que el accent sigue siendo un acento.
+   * Halo del accent detrás de la cabecera: dos radiales abiertos, indigo y
+   * violeta, que dan profundidad al negro sin leerse como una mancha.
    */
   .accent-glow {
     background-image:
       radial-gradient(
         45% 60% at 85% 10%,
-        rgb(99 102 241 / 0.28) 0%,
+        rgb(124 58 237 / 0.28) 0%,
         transparent 70%
       ),
       radial-gradient(
         55% 55% at 15% 0%,
-        rgb(79 70 229 / 0.2) 0%,
-        rgb(79 70 229 / 0.06) 45%,
+        rgb(99 102 241 / 0.3) 0%,
+        rgb(79 70 229 / 0.08) 45%,
         transparent 75%
       );
   }
 
   /*
-   * Nombre del Hero en degradado animado. Va del indigo casi negro al accent
-   * claro, así que sigue siendo un único color; el extremo claro da 3.9:1
-   * sobre el fondo, suficiente para texto grande (AA pide 3:1).
+   * Relleno neón de los botones principales: indigo profundo a violeta. Los
+   * dos extremos pasan AA con texto blanco (6.3:1 y 5.7:1). El tamaño doble
+   * permite desplazar el degradado en hover.
+   */
+  .bg-neon {
+    background-image: linear-gradient(
+      120deg,
+      var(--color-accent-deep) 0%,
+      #6d28d9 50%,
+      var(--color-accent-deep) 100%
+    );
+    background-size: 200% 100%;
+    background-position: 0% 50%;
+    transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bg-neon:hover {
+    background-position: 100% 50%;
+  }
+
+  /*
+   * Borde neón giratorio. Se pinta con dos fondos: el interior con el color
+   * de la card (`padding-box`) y un barrido cónico animado debajo
+   * (`border-box`) que solo asoma por el borde transparente.
+   */
+  .neon-border {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+      conic-gradient(
+          from var(--angle),
+          transparent 0%,
+          var(--color-accent) 12%,
+          var(--color-violet) 22%,
+          transparent 35%,
+          transparent 60%,
+          var(--color-accent-deep) 75%,
+          transparent 90%
+        )
+        border-box;
+    animation: border-spin 6s linear infinite;
+  }
+
+  /*
+   * Nombre del Hero en degradado animado: blanco, indigo claro y violeta.
+   * Todos los tonos son claros, así que cualquier punto del barrido pasa AA
+   * sobre el fondo casi negro.
    */
   .text-gradient-hero {
     background-image: linear-gradient(
       110deg,
-      var(--color-accent-night) 0%,
-      var(--color-accent) 40%,
-      var(--color-accent-bright) 60%,
-      var(--color-accent-night) 100%
+      #ffffff 0%,
+      var(--color-accent-bright) 25%,
+      var(--color-violet) 50%,
+      var(--color-accent) 75%,
+      #ffffff 100%
     );
     background-size: 220% 100%;
     background-clip: text;
@@ -154,21 +225,21 @@
     color: transparent;
   }
 
-  /* Número gigante de sección: solo el contorno, en el accent diluido. */
+  /* Número gigante de sección: solo el contorno, en neón muy diluido. */
   .text-outline {
     color: transparent;
-    -webkit-text-stroke: 1.5px rgb(79 70 229 / 0.18);
+    -webkit-text-stroke: 1.5px rgb(129 140 248 / 0.16);
   }
 
-  /* Aro de la foto del Hero: un barrido cónico del accent que gira. */
+  /* Aro de la foto del Hero: un barrido cónico neón que gira. */
   .ring-conic {
     background-image: conic-gradient(
       from 0deg,
-      var(--color-accent-night),
+      var(--color-violet-deep),
       var(--color-accent),
-      var(--color-accent-bright),
+      var(--color-violet),
       transparent 70%,
-      var(--color-accent-night)
+      var(--color-violet-deep)
     );
   }
 
@@ -189,9 +260,10 @@
    */
   .spotlight {
     background-image: radial-gradient(
-      320px circle at var(--x, 50%) var(--y, 50%),
-      rgb(79 70 229 / 0.1),
-      transparent 60%
+      340px circle at var(--x, 50%) var(--y, 50%),
+      rgb(129 140 248 / 0.14),
+      rgb(124 58 237 / 0.06) 40%,
+      transparent 65%
     );
   }
 
@@ -208,15 +280,22 @@
     );
   }
 
-  /* Texto del propio accent en degradado, para los números de sección. */
+  /* Texto en degradado indigo → violeta, para números y acentos. */
   .text-gradient-accent {
     background-image: linear-gradient(
       135deg,
-      var(--color-accent) 0%,
-      var(--color-accent-deep) 100%
+      var(--color-accent-bright) 0%,
+      var(--color-violet) 100%
     );
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+  }
+
+  /* Brillo neón en texto grande. */
+  .text-glow {
+    text-shadow:
+      0 0 24px rgb(129 140 248 / 0.45),
+      0 0 60px rgb(124 58 237 / 0.25);
   }
 }

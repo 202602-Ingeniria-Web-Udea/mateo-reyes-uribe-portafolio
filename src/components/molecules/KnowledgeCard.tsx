@@ -86,7 +86,7 @@ export function KnowledgeCard({
     >
       {/*
         Borde giratorio: un barrido cónico enorme gira detrás y una capa
-        blanca, dos píxeles más pequeña, lo tapa salvo en el filo.
+        del color de la card, dos píxeles más pequeña, lo tapa salvo en el filo.
       */}
       <span
         aria-hidden="true"
@@ -103,17 +103,17 @@ export function KnowledgeCard({
       {/* Filete de accent que entra por el borde superior en hover. */}
       <span
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-[3px] scale-x-0 bg-gradient-to-r from-accent-deep via-accent to-accent-bright transition-transform duration-500 ease-out group-hover:scale-x-100"
+        className="absolute inset-x-0 top-0 h-[3px] scale-x-0 bg-gradient-to-r from-accent-deep via-violet to-accent-bright transition-transform duration-500 ease-out group-hover:scale-x-100"
       />
 
       <IconBadge
         icon={icon}
         shape="square"
         size={48}
-        className="relative transition-all duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110 group-hover:from-accent group-hover:to-accent-deep group-hover:text-white group-hover:shadow-glow"
+        className="relative transition-all duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110 group-hover:from-accent-deep group-hover:to-violet-deep group-hover:text-white group-hover:shadow-glow"
       />
 
-      <h3 className="relative mt-5 text-lg font-semibold tracking-snug text-ink transition-colors duration-300 group-hover:text-accent-deep">
+      <h3 className="relative mt-5 text-lg font-semibold tracking-snug text-ink transition-colors duration-300 group-hover:text-accent-bright">
         {title}
       </h3>
       <p className="relative mt-2.5 text-sm leading-relaxed text-muted">
